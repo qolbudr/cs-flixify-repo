@@ -189,7 +189,7 @@ open class FlixifyEmbedApi : ExtractorApi() {
             it.contains("eval(function(p,a,c,k,e,d)")
         } .map {script ->
             val data = getAndUnpack(script)
-            val link = Regex("file:['\\\"]https(.*)['\\\"]").find(data)?.groupValues?.getOrNull(1)
+            val link = Regex("(?<=file:\")(.*)(?=\")").find(data)?.groupValues?.getOrNull(1)
                 ?: return@map null
 
             val returnLink = link.replace("file:\"", "").replace("\"", "")
