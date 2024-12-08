@@ -151,14 +151,19 @@ class MovieProvider : MainAPI() {
     }
 
     override suspend fun loadLinks(data: String, isCasting: Boolean, subtitleCallback: (SubtitleFile) -> Unit, callback: (ExtractorLink) -> Unit): Boolean {
-        val res = app.get(data).text
+        val document = app.get(data).document
+        val title = document.selectFirst(".entry-title")?.text() ?: ""
+        val year = document.selectFirst("#w-info > div.info > div.detail > div:nth-child(3) > span > a")?.text() ?: ""
+        val tmdbId = getTmdbId(query = title, year = year);
+        val append = "alternative_titles,credits,external_ids,keywords,videos,recommendations"
+        val urlFetch = "$tmdbURL/movie/${tmdbId}?api_key=$apiTmdb&append_to_response=$append"
 
-        val regex = Regex("Servers = \\{[^}]*\\}").find(res)?.groupValues?.get(1)
-        val url = Klaxon().parse<StreamData>(regex?.replace("Servers = ", "") ?: "{}")
+        val result = app.get(urlFetch).parsedSafe<MediaDetail>()
+            ?: throw ErrorLoadingException("Invalid Json Response")
 
-        if(url?.extra2 != null) {
-            loadExtractor(url.extra2, mainUrl, subtitleCallback, callback)
-        }
+        val link = "https://www.2embed.cc/embed/${result.externalIds?.imdbId}"
+
+        loadExtractor(link, mainUrl, subtitleCallback, callback)
         return true
     }
 }
@@ -198,9 +203,6 @@ open class FlixifyEmbedApi : ExtractorApi() {
                 )
             )
         }
-
-
-        callback.invoke(ExtractorLink("Mp4Upload", "Mp4Upload", url, mainUrl, Qualities.Unknown.value, isM3u8 = url.contains("m3u8")))
     }
 }
 
@@ -218,7 +220,12 @@ data class MediaDetail(
     @JsonProperty("seasons") val seasons: ArrayList<Seasons>? = arrayListOf(),
     @JsonProperty("videos") val videos: ResultsTrailer? = null,
     @JsonProperty("credits") val credits: Credits? = null,
+    @JsonProperty("external_ids") val externalIds: ExternalIds? = null,
     @JsonProperty("last_episode_to_air") val last_episode_to_air: LastEpisodeToAir? = null,
+)
+
+data class ExternalIds(
+    @JsonProperty("imdb_id") val imdbId: String? = null,
 )
 
 data class Trailers(
