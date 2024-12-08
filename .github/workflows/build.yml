@@ -1,11 +1,12 @@
 name: Build
 
 # https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#concurrency
-concurrency: 
+concurrency:
   group: "build"
   cancel-in-progress: true
 
 on:
+  workflow_dispatch:
   push:
     branches:
       # choose your default branch
@@ -19,16 +20,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v4
         with:
           path: "src"
 
       - name: Checkout builds
-        uses: actions/checkout@master
+        uses: actions/checkout@v4
         with:
           ref: "builds"
           path: "builds"
-      
+
       - name: Clean old builds
         run: rm $GITHUB_WORKSPACE/builds/*.cs3 || true
 
