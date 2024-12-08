@@ -109,7 +109,7 @@ class MovieProvider : MainAPI() {
 
     override suspend fun load(url: String): LoadResponse? {
         val document = app.get(url).document
-        val title = document.selectFirst(".name entry-title h1")?.text() ?: ""
+        val title = document.selectFirst(".entry-title")?.text() ?: ""
         val year = document.selectFirst("#w-info > div.info > div.detail > div:nth-child(3) > span > a")?.text() ?: ""
         val tmdbId = getTmdbId(query = title, year = year);
         val append = "alternative_titles,credits,external_ids,keywords,videos,recommendations"
