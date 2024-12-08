@@ -175,7 +175,7 @@ open class FlixifyEmbedApi : ExtractorApi() {
         val id = iframe.split("id=").last()
 
         val sourceDoc = app.get("https://uqloads.xyz/e/$id", headers = mapOf(
-            "Referer" to "https://uqloads.xyz/e/eggct506wsg3"
+            "Referer" to "https://streamsrcs.2embed.cc/"
         )).document
 
         sourceDoc.select("script").map {
