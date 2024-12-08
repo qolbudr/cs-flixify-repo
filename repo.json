@@ -1,0 +1,8 @@
+{
+  "name": "Cloudstream Flixify Repository",
+  "description": "Flixify Repository",
+  "manifestVersion": 1,
+  "pluginLists": [
+    "https://raw.githubusercontent.com/qolbudr/cs-flixify-repo/builds/plugins.json"
+  ]
+}
