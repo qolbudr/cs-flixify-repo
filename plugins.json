@@ -1,0 +1,20 @@
+[
+    {
+        "iconUrl": "https://st2.depositphotos.com/3867453/6512/v/450/depositphotos_65122799-stock-illustration-letter-f-wing-flag-logo.jpg",
+        "apiVersion": 1,
+        "repositoryUrl": "https://github.com/qolbudr/cs-flixify-repo",
+        "fileSize": 27255,
+        "status": 1,
+        "authors": [
+            "qolbudr"
+        ],
+        "tvTypes": [
+            "Movie"
+        ],
+        "version": 17,
+        "internalName": "MovieProvider",
+        "description": "Flixify Movie Repository",
+        "url": "https://raw.githubusercontent.com/qolbudr/cs-flixify-repo/builds/MovieProvider.cs3",
+        "name": "MovieProvider"
+    }
+]
