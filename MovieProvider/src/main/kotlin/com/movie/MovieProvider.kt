@@ -163,7 +163,7 @@ class MovieProvider : MainAPI() {
 
         val link = "https://www.2embed.cc/embed/${result.externalIds?.imdbId}"
 
-        loadExtractor(link, mainUrl, subtitleCallback, callback)
+        loadExtractor("https://premieres.vidzstore.com/upload/2024/Dec/Moana-2-2024-720p/output.m3u8", mainUrl, subtitleCallback, callback)
         return true
     }
 }
@@ -189,10 +189,10 @@ open class FlixifyEmbedApi : ExtractorApi() {
             it.contains("eval(function(p,a,c,k,e,d)")
         } .map {script ->
             val data = getAndUnpack(script)
-            val link = Regex("(?<=file:\")(.*)(?=4761)").find(data)?.groupValues?.getOrNull(1)
+            val link = Regex("file:['\\\"]https(.*)['\\\"]").find(data)?.groupValues?.getOrNull(1)
                 ?: return@map null
 
-            val returnLink = link + "4761"
+            val returnLink = link.replace("file:\"", "").replace("\"", "")
             callback.invoke(
                 ExtractorLink(
                     this.name,
