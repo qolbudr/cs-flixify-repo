@@ -192,7 +192,7 @@ open class FlixifyEmbedApi : ExtractorApi() {
             val link = Regex("(?<=file:\")(.*)(?=\")").find(data)?.groupValues?.getOrNull(1)
                 ?: return@map null
 
-            val returnLink = link.replace("file:\"", "").replace("\"", "")
+            val returnLink = link.split("}],image").get(index = 0)
             callback.invoke(
                 ExtractorLink(
                     this.name,
