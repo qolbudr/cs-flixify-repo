@@ -168,11 +168,12 @@ class MovieProvider : MainAPI() {
             ExtractorLink(
                 "MilkyWay",
                 "MilkyWay",
-                "https://ngr2dnwrdasv7gvg.premilkyway.com/hls2/01/06467/o92z9w0kzlpw_l/master.m3u8?t=mDiksjZdT795X-kRAz8ixJvw9gSp4O_yec66RRZkJKk&s=1733888614&e=129600&f=32471809&srv=zukkcg9r2ba2&i=0.0&sp=500&p1=zukkcg9r2ba2&p2=zukkcg9r2ba2&asn=17451",
+                "https://live-par-2-abr.livepush.io/vod/bigbuckbunnyclip.mp4",
                 "",
                 Qualities.Unknown.value
             )
         )
+
         return true
     }
 }
