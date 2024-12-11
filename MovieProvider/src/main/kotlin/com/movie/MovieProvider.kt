@@ -163,17 +163,7 @@ class MovieProvider : MainAPI() {
 
         val link = "https://www.2embed.cc/embed/${result.externalIds?.imdbId}"
 
-        // loadExtractor("https://ngr2dnwrdasv7gvg.premilkyway.com/hls2/01/06467/o92z9w0kzlpw_l/master.m3u8?t=mDiksjZdT795X-kRAz8ixJvw9gSp4O_yec66RRZkJKk&s=1733888614&e=129600&f=32471809&srv=zukkcg9r2ba2&i=0.0&sp=500&p1=zukkcg9r2ba2&p2=zukkcg9r2ba2&asn=17451", mainUrl, subtitleCallback, callback)
-        callback.invoke(
-            ExtractorLink(
-                "MilkyWay",
-                "MilkyWay",
-                "https://QdihMNFwepXNi.acek-cdn.com/hls2/01/02953/htx31lekb38q_,l,n,h,.urlset/master.m3u8?t=wsA-h2gR1ySpE4REH33PriFDvQa_2dW8cCOd0KtY2ps&s=1733890602&e=129600&f=14768353&srv=0g7xgsanrz08&i=0.4&sp=500&p1=0g7xgsanrz08&p2=0g7xgsanrz08&asn=4761",
-                "",
-                Qualities.Unknown.value,
-                isM3u8 = true
-            )
-        )
+        loadExtractor(link, mainUrl, subtitleCallback, callback)
 
         return true
     }
@@ -210,7 +200,8 @@ open class FlixifyEmbedApi : ExtractorApi() {
                     this.name,
                     returnLink,
                     "",
-                    Qualities.Unknown.value
+                    Qualities.Unknown.value,
+                    isM3u8 = returnLink.contains(".m3u8")
                 )
             )
         }
