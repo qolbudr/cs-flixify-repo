@@ -168,9 +168,10 @@ class MovieProvider : MainAPI() {
             ExtractorLink(
                 "MilkyWay",
                 "MilkyWay",
-                "https://live-par-2-abr.livepush.io/vod/bigbuckbunnyclip.mp4",
+                "https://QdihMNFwepXNi.acek-cdn.com/hls2/01/02953/htx31lekb38q_,l,n,h,.urlset/master.m3u8?t=wsA-h2gR1ySpE4REH33PriFDvQa_2dW8cCOd0KtY2ps&s=1733890602&e=129600&f=14768353&srv=0g7xgsanrz08&i=0.4&sp=500&p1=0g7xgsanrz08&p2=0g7xgsanrz08&asn=4761",
                 "",
-                Qualities.Unknown.value
+                Qualities.Unknown.value,
+                isM3u8 = true
             )
         )
 
