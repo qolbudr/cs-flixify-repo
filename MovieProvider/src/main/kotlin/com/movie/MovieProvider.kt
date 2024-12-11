@@ -126,28 +126,28 @@ class MovieProvider : MainAPI() {
         val actors = res.credits?.cast?.mapNotNull { cast ->
             ActorData(
                 Actor(cast.name ?: cast.originalName
-            ?: return@mapNotNull null, getImageUrl(cast.profilePath)), roleString = cast.character)
+                ?: return@mapNotNull null, getImageUrl(cast.profilePath)), roleString = cast.character)
         } ?: return null
 
         val trailer = res.videos?.results?.map { "https://www.youtube.com/watch?v=${it.key}" }?.randomOrNull()
 
         return newMovieLoadResponse(
-                resTitle,
-                url,
-                TvType.Movie,
-                url,
-            ) {
-                this.posterUrl = poster
-                this.backgroundPosterUrl = bgPoster
-                this.year = year.toIntOrNull()
-                this.plot = res.overview
-                this.duration = res.runtime
-                this.tags = genres
-                this.rating = rating
-                this.recommendations = recommendations
-                this.actors = actors
-                addTrailer(trailer)
-            }
+            resTitle,
+            url,
+            TvType.Movie,
+            url,
+        ) {
+            this.posterUrl = poster
+            this.backgroundPosterUrl = bgPoster
+            this.year = year.toIntOrNull()
+            this.plot = res.overview
+            this.duration = res.runtime
+            this.tags = genres
+            this.rating = rating
+            this.recommendations = recommendations
+            this.actors = actors
+            addTrailer(trailer)
+        }
     }
 
     override suspend fun loadLinks(data: String, isCasting: Boolean, subtitleCallback: (SubtitleFile) -> Unit, callback: (ExtractorLink) -> Unit): Boolean {
@@ -189,10 +189,10 @@ open class FlixifyEmbedApi : ExtractorApi() {
             it.contains("eval(function(p,a,c,k,e,d)")
         } .map {script ->
             val data = getAndUnpack(script)
-            val link = Regex("(?<=file:\")(.*)(?=4761)").find(data)?.groupValues?.getOrNull(1)
+            val link = Regex("file:['\\\\\\\"]https(.*)['\\\\\\\"]").find(data)?.groupValues?.getOrNull(1)
                 ?: return@map null
 
-            val returnLink = link + "4761"
+            val returnLink = link.replace("file:\"", "").replace("\"", "")
             callback.invoke(
                 ExtractorLink(
                     this.name,
@@ -200,7 +200,7 @@ open class FlixifyEmbedApi : ExtractorApi() {
                     returnLink,
                     "",
                     Qualities.Unknown.value,
-                    isM3u8 = returnLink.contains(".m3u8")
+                    isM3u8 = true
                 )
             )
         }
