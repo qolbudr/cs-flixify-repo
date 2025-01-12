@@ -1,5 +1,5 @@
 // use an integer for version numbers
-version = 17
+version = 18
 
 
 cloudstream {
@@ -21,7 +21,8 @@ cloudstream {
     // You can find a list of avaliable types here:
     // https://recloudstream.github.io/cloudstream/html/app/com.lagradost.cloudstream3/-tv-type/index.html
     tvTypes = listOf(
-        "Movie"
+        "Movie",
+        "TvSeries"
     )
 
     iconUrl = "https://st2.depositphotos.com/3867453/6512/v/450/depositphotos_65122799-stock-illustration-letter-f-wing-flag-logo.jpg"
